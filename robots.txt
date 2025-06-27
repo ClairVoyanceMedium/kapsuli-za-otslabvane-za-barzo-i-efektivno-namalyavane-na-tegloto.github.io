@@ -1,42 +1,283 @@
-# Indique aux robots que toutes les pages peuvent être explorées, sauf restrictions spécifiées
-User-agent: *
-Disallow: /admin/
-Disallow: /tmp/
-Disallow: /private/
+# robots.txt v3.5 - 2025-05-28  
+# Оптимизиран за https://clairvoyancemedium.github.io/kapsuli-za-otslabvane-za-barzo-i-efektivno-namalyavane-na-tegloto.github.io/  
+# Цели: Глобален SEO, интензивно индексиране, поддръжка за ИИ/гласови асистенти/социални мрежи, многоезичност, максимална защита  
 
-# Bloquer des URL avec paramètres inutiles pour l'indexation
-Disallow: /*?debug=true
-Disallow: /*?preview=true
+# --- Общи директиви за всички легитимни ботове ---  
+User-agent: *  
+Allow: /  
+Allow: /[a-z]{2}/  # Многоезични страници (/bg/, /en/, /es/, и т.н.)  
+Allow: /terms/     # Публични общи условия  
+Allow: /fonts/     # Шрифтове за визуализация  
+Allow: /images/    # Изображения за индексиране  
+Allow: /js/        # Интерактивни скриптове  
+Allow: /css/       # Mobile-first CSS  
+Allow: /*.webp$    # WebP изображения  
+Allow: /*.jpg$     # JPG изображения  
+Allow: /*.png$     # PNG изображения  
+Allow: /*.gif$     # GIF изображения  
+Allow: /*.js$      # JavaScript скриптове  
+Allow: /*.css$     # CSS файлове  
+Disallow: /csp-report-endpoint/  # Защита на CSP  
+Disallow: /contact/             # Контактна страница  
+Disallow: /privacy/             # Политика за поверителност  
+Disallow: /checkout/            # Транзакционни пътища  
+Disallow: /search/              # Търсещи страници  
+Disallow: /api/                 # API ендпойнти  
+Disallow: /test/                # Тестови директории  
+Disallow: /staging/             # Staging среди  
+Clean-param: utm_source&utm_medium&utm_campaign&lang&session_id  # Разрешаване на полезни параметри  
 
-# Permettre les fichiers nécessaires au bon affichage et fonctionnement
-Allow: /css/
-Allow: /js/
-Allow: /images/
+# --- Директиви за Googlebot (Google, Google Assistant) ---  
+User-agent: Googlebot  
+Crawl-delay: 1  
+Allow: /blog/      # Богато съдържание за SEO  
+Allow: /article/   # Статии за снипети  
+Clean-param: utm_source&utm_medium&utm_campaign&lang  
+Disallow: /csp-report-endpoint/  
+Disallow: /contact/  
+Disallow: /privacy/  
+Disallow: /checkout/  
 
-# Référencement des ressources multimédias
-Allow: *.png
-Allow: *.jpg
-Allow: *.webp
-Allow: *.css
-Allow: *.js
+# --- Директиви за Googlebot-Image ---  
+User-agent: Googlebot-Image  
+Allow: /images/  
+Allow: /*.webp$  
+Allow: /*.jpg$  
+Allow: /*.png$  
+Allow: /*.gif$  
+Disallow: /favicon_optimized.webp  # Избягване на favicon  
 
-# Fournir le chemin du fichier sitemap pour une meilleure indexation
-Sitemap: https://www.clairvoyancemedium.com/sitemap.xml
+# --- Директиви за Googlebot-Video ---  
+User-agent: Googlebot-Video  
+Crawl-delay: 1  
+Allow: /  
+Allow: /[a-z]{2}/  
+Disallow: /csp-report-endpoint/  
+Disallow: /contact/  
+Disallow: /privacy/  
+Disallow: /checkout/  
 
-# Autorisation pour les robots Google et Bing pour maximiser les campagnes publicitaires
-User-agent: Googlebot
-Allow: /
-User-agent: AdsBot-Google
-Allow: /
-User-agent: Bingbot
-Allow: /
+# --- Директиви за Bingbot (Bing, Cortana) ---  
+User-agent: Bingbot  
+Crawl-delay: 2  
+Allow: /blog/  
+Allow: /article/  
+Clean-param: utm_source&utm_medium&utm_campaign&lang  
+Disallow: /csp-report-endpoint/  
+Disallow: /contact/  
+Disallow: /privacy/  
+Disallow: /checkout/  
 
-# Bloquer les robots nuisibles ou non désirés
-User-agent: BadBot
-Disallow: /
-User-agent: EvilScraper
-Disallow: /
+# --- Директиви за Yandex (Yandex, Alice) ---  
+User-agent: Yandex  
+Crawl-delay: 3  
+Allow: /blog/  
+Allow: /article/  
+Clean-param: utm_source&utm_medium&utm_campaign&lang&session_id  
+Disallow: /csp-report-endpoint/  
+Disallow: /contact/  
+Disallow: /privacy/  
+Disallow: /checkout/  
 
-# Empêcher l'exploration des fichiers sensibles
-Disallow: /config/
-Disallow: /backup/
+# --- Директиви за Baiduspider (Китай) ---  
+User-agent: Baiduspider  
+Crawl-delay: 3  
+Allow: /zh/        # Приоритизиране на китайски  
+Allow: /blog/  
+Allow: /article/  
+Clean-param: lang  
+Disallow: /csp-report-endpoint/  
+Disallow: /contact/  
+Disallow: /privacy/  
+Disallow: /checkout/  
+Disallow: /api/  
+Disallow: /test/  
+Disallow: /staging/  
+
+# --- Директиви за Sogou (Китай) ---  
+User-agent: Sogou  
+Crawl-delay: 4  
+Allow: /zh/  
+Allow: /blog/  
+Allow: /article/  
+Clean-param: lang  
+Disallow: /csp-report-endpoint/  
+Disallow: /contact/  
+Disallow: /privacy/  
+Disallow: /checkout/  
+Disallow: /api/  
+Disallow: /test/  
+Disallow: /staging/  
+
+# --- Директиви за Applebot (Siri, Apple) ---  
+User-agent: Applebot  
+Crawl-delay: 2  
+Allow: /blog/  
+Allow: /article/  
+Clean-param: utm_source&utm_medium&utm_campaign&lang  
+Disallow: /csp-report-endpoint/  
+Disallow: /contact/  
+Disallow: /privacy/  
+Disallow: /checkout/  
+
+# --- Директиви за Amazonbot (Alexa, Amazon) ---  
+User-agent: Amazonbot  
+Crawl-delay: 3  
+Allow: /blog/  
+Allow: /article/  
+Clean-param: utm_source&utm_medium&utm_campaign&lang  
+Disallow: /csp-report-endpoint/  
+Disallow: /contact/  
+Disallow: /privacy/  
+Disallow: /checkout/  
+
+# --- Директиви за Naverbot (Япония/Корея) ---  
+User-agent: Naverbot  
+Crawl-delay: 3  
+Allow: /ja/        # Приоритизиране на японски  
+Allow: /ko/        # Приоритизиране на корейски  
+Allow: /blog/  
+Allow: /article/  
+Clean-param: lang  
+Disallow: /csp-report-endpoint/  
+Disallow: /contact/  
+Disallow: /privacy/  
+Disallow: /checkout/  
+
+# --- Директиви за SeznamBot (Чехия) ---  
+User-agent: SeznamBot  
+Crawl-delay: 3  
+Allow: /cs/        # Приоритизиране на чешки  
+Allow: /blog/  
+Allow: /article/  
+Clean-param: lang  
+Disallow: /csp-report-endpoint/  
+Disallow: /contact/  
+Disallow: /privacy/  
+Disallow: /checkout/  
+
+# --- Директиви за Qwantify (Qwant, Европа) ---  
+User-agent: Qwantify  
+Crawl-delay: 4  
+Allow: /fr/        # Приоритизиране на френски  
+Allow: /blog/  
+Allow: /article/  
+Clean-param: lang  
+Disallow: /csp-report-endpoint/  
+Disallow: /contact/  
+Disallow: /privacy/  
+Disallow: /checkout/  
+
+# --- Директиви за DuckDuckGoBot (Глобални) ---  
+User-agent: DuckDuckGoBot  
+Crawl-delay: 2  
+Allow: /  
+Allow: /[a-z]{2}/  
+Allow: /blog/  
+Allow: /article/  
+Clean-param: utm_source&utm_medium&utm_campaign&lang  
+Disallow: /csp-report-endpoint/  
+Disallow: /contact/  
+Disallow: /privacy/  
+Disallow: /checkout/  
+
+# --- Директиви за JioSphere (Индия) ---  
+User-agent: JioSphere  
+Crawl-delay: 3  
+Allow: /hi/        # Приоритизиране на хинди  
+Allow: /blog/  
+Allow: /article/  
+Clean-param: lang  
+Disallow: /csp-report-endpoint/  
+Disallow: /contact/  
+Disallow: /privacy/  
+Disallow: /checkout/  
+
+# --- Директиви за разговорни ИИ ботове ---  
+User-agent: Grok  
+User-agent: ChatGPT-User  
+User-agent: GPTBot  
+User-agent: openai-crawler  
+User-agent: ClaudeBot  
+User-agent: anthropic-ai  
+User-agent: cohere-ai  
+User-agent: PerplexityBot  
+User-agent: CCBot  
+User-agent: youbot  
+User-agent: phindbot  
+User-agent: GeminiBot  # Google AI  
+Crawl-delay: 4  
+Allow: /  
+Allow: /[a-z]{2}/  
+Allow: /blog/      # Разговорни извадки  
+Allow: /article/  
+Allow: /images/  
+Allow: /*.webp$  
+Allow: /*.jpg$  
+Allow: /*.png$  
+Allow: /*.gif$  
+Clean-param: utm_source&utm_medium&utm_campaign&lang  
+Disallow: /csp-report-endpoint/  
+Disallow: /contact/  
+Disallow: /privacy/  
+Disallow: /checkout/  
+Disallow: /api/  
+Disallow: /test/  
+Disallow: /staging/  
+
+# --- Директиви за социални мрежи ---  
+User-agent: FacebookBot  
+User-agent: Twitterbot  
+User-agent: redditbot  
+User-agent: TikTokBot  # Нововъзникващи социални мрежи  
+Crawl-delay: 2  
+Allow: /  
+Allow: /[a-z]{2}/  
+Allow: /blog/      # Социални визуализации  
+Allow: /article/  
+Allow: /images/  
+Allow: /*.webp$  
+Allow: /*.jpg$  
+Allow: /*.png$  
+Allow: /*.gif$  
+Clean-param: utm_source&utm_medium&utm_campaign&lang  
+Disallow: /csp-report-endpoint/  
+Disallow: /contact/  
+Disallow: /privacy/  
+Disallow: /checkout/  
+
+# --- Блокиране на нежелани ботове ---  
+User-agent: MJ12bot  
+User-agent: AhrefsBot  
+User-agent: PetalBot  
+User-agent: DotBot  
+Disallow: /  
+
+# --- Разрешаване на SemrushBot за SEO аудити ---  
+User-agent: SemrushBot  
+Crawl-delay: 5  
+Allow: /  
+Allow: /[a-z]{2}/  
+Allow: /blog/  
+Allow: /article/  
+Allow: /images/  
+Allow: /*.webp$  
+Allow: /*.jpg$  
+Allow: /*.png$  
+Allow: /*.gif$  
+Clean-param: utm_source&utm_medium&utm_campaign&lang  
+Disallow: /csp-report-endpoint/  
+Disallow: /contact/  
+Disallow: /privacy/  
+Disallow: /checkout/  
+
+# --- Защита срещу неразпознати ботове ---  
+User-agent: *  
+Disallow: /  # Блокиране по подразбиране освен ако е изрично разрешено  
+
+# --- Оптимизация на индексирането ---  
+Crawl-delay: 1  
+Request-rate: 1/4  # 1 заявка/4s за бързо индексиране  
+
+# --- Sitemap индекс ---  
+Sitemap: https://clairvoyancemedium.github.io/kapsuli-za-otslabvane-za-barzo-i-efektivno-namalyavane-na-tegloto.github.io/sitemap-index.xml

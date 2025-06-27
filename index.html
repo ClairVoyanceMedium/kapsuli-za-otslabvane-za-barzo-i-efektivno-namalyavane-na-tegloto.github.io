@@ -1866,4 +1866,256 @@
 }
 </script>
 
+<div class="cta-buttons-container">
+    <a href="https://buy.stripe.com/5kA6oMfzK9D15KE6pL" target="_blank" rel="noopener nofollow" class="cta-button" data-tracking-label="PopupVictory" aria-label="Поръчайте капсулите Victory от изскачащия прозорец">
+        <span style="color:#000; text-shadow:0 0 5px rgba(255,255,255,0.8), 0 0 10px rgba(255,255,255,0.6), 0 0 15px rgba(255,255,255,0.4); animation:neon-flicker 1.5s infinite alternate;">Поръчайте сега капсулите за бързо отслабване "Victory"</span>
+    </a>
+    <a href="https://buy.stripe.com/14kdRe0EQ4iH1uoaFa" target="_blank" rel="noopener nofollow" class="cta-button" data-tracking-label="PopupVictory" aria-label="Поръчайте гадаене по имейл за 6€ от изскачащия прозорец">
+        <span style="color:#000; text-shadow:0 0 5px rgba(255,255,255,0.8), 0 0 10px rgba(255,255,255,0.6), 0 0 15px rgba(255,255,255,0.4); animation:neon-flicker 1.5s infinite alternate;">Гадаене на 1 въпрос по имейл - 6,00€</span>
+    </a>
+    <button class="popup-close-button" id="closePopup" aria-label="Затворете изскачащия прозорец">Затвори</button>
+</div>
+</div>
+
+<!-- Footer -->
+<footer role="contentinfo">
+    <p>©<span id="footer-year"></span> ClairvoyanceMedium.com – Всички права запазени - Безплатна и световна доставка за 48 часа - Сигурно плащане</p>
+    <p>Няма споменаване на "гадаене" или "отслабване" в банковата ви изписка. Гарантирана дискретност.</p>
+    <p>
+        <a href="mailto:contact.clairvoyancemedium@gmail.com?subject=Запитване%20за%20информация" rel="noopener" onclick="gtag('event', 'footer_link_click', { 'link_name': 'contact' });" aria-label="Свържете се с клиентската поддръжка по имейл">Контакт</a> | 
+        <a href="https://www.clairvoyancemedium.com/Conditions-Generales-des-Ventes-et-d-Utilisation-ccsaaaaaa.asp" target="_blank" rel="noopener" onclick="gtag('event', 'footer_link_click', { 'link_name': 'cgv' });" aria-label="Разгледайте общите условия за продажба и използване">Общи условия за продажба</a> | 
+    </p>
+</footer>
+
+</script nonce="xai-ultra2025">
+
+<!-- Scripts JavaScript -->
+<script nonce="xai-ultra2025">
+    // Управление на динамичната година
+    const currentYear = new Date().getFullYear();
+    document.querySelectorAll('#header-year, #header-title-year, #hero-year, #urgency-year, #minceur-urgency-year, #programme-urgency-year, #spiritual-urgency-year, #footer-year').forEach(el => el.textContent = currentYear);
+
+    // Управление на изскачащия прозорец (всички устройства, всяко посещение, 12s начално, повторение на всеки 90s)
+    const youtubePopup = document.getElementById('youtubePopup');
+    const closePopup = document.getElementById('closePopup');
+
+    function showPopup() {
+        setTimeout(() => {
+            // Скриване на изскачащия прозорец, за да се избегнат конфликти
+            document.querySelector('.exit-intent-popup')?.classList.remove('active');
+            youtubePopup.classList.add('active');
+            youtubePopup.setAttribute('aria-hidden', 'false');
+            document.getElementById('youtube-popup-heading').focus();
+        }, 12000);
+    }
+
+    closePopup.addEventListener('click', () => {
+        youtubePopup.classList.remove('active');
+        youtubePopup.setAttribute('aria-hidden', 'true');
+        // Показване на изскачащия прозорец след 90 секунди
+        setTimeout(showPopup, 140000);
+    });
+
+    // Затваряне с клавиш Escape
+    youtubePopup.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            youtubePopup.classList.remove('active');
+            youtubePopup.setAttribute('aria-hidden', 'true');
+            setTimeout(showPopup, 140000);
+        }
+    });
+
+    window.addEventListener('load', showPopup);
+
+    // Управление на карусела
+    const carousels = document.querySelectorAll('.carousel');
+    carousels.forEach(carousel => {
+        const inner = carousel.querySelector('.carousel-inner');
+        const items = carousel.querySelectorAll('.carousel-item');
+        const prevBtn = carousel.querySelector('.carousel-prev');
+        const nextBtn = carousel.querySelector('.carousel-next');
+        let currentIndex = 0;
+
+        function updateCarousel() {
+            items.forEach((item, index) => {
+                item.classList.toggle('active', index === currentIndex);
+                item.setAttribute('aria-hidden', index !== currentIndex);
+            });
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === items.length - 1;
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCarousel();
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentIndex < items.length - 1) {
+                currentIndex++;
+                updateCarousel();
+            }
+        });
+
+        updateCarousel();
+    });
+
+    // Управление на бутоните "Прочети още"
+    const readMoreButtons = document.querySelectorAll('.read-more-btn');
+    readMoreButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const content = btn.nextElementSibling;
+            content.style.display = content.style.display === 'block' ? 'none' : 'block';
+            btn.textContent = content.style.display === 'block' ? 'Намали' : 'Прочети още';
+        });
+    });
+
+    // Управление на калкулатора за ИТМ
+    const imcForm = document.getElementById('imc-form');
+    const heightInput = document.getElementById('height');
+    const weightInput = document.getElementById('weight');
+    const imcRecommendation = document.getElementById('imc-recommendation');
+    const imcChart = document.getElementById('imc-chart').getContext('2d');
+    let chartInstance = null;
+
+    function validateInput(input, min, max, errorElement) {
+        const value = parseFloat(input.value);
+        if (isNaN(value) || value < min || value > max) {
+            errorElement.style.display = 'block';
+            return false;
+        }
+        errorElement.style.display = 'none';
+        return true;
+    }
+
+    imcForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const heightValid = validateInput(heightInput, 100, 250, document.getElementById('height-error'));
+        const weightValid = validateInput(weightInput, 30, 300, document.getElementById('weight-error'));
+
+        if (heightValid && weightValid) {
+            const height = parseFloat(heightInput.value) / 100;
+            const weight = parseFloat(weightInput.value);
+            const imc = (weight / (height * height)).toFixed(1);
+
+            let category, recommendation, posology;
+            if (imc < 18.5) {
+                category = 'Поднормено тегло';
+                recommendation = 'Вашият ИТМ показва поднормено тегло. Консултирайте се с професионалист за подходящ план.';
+                posology = '';
+            } else if (imc < 25) {
+                category = 'Нормално тегло';
+                recommendation = 'Вашият ИТМ е идеален. Поддържайте теглото си със сбалансирана храна, комбинирана с 4 капсули Victory за дни на "удоволствие". 2 сутрин и вечер.';
+                posology = '';
+            } else if (imc < 30) {
+                category = 'Наднормено тегло';
+                recommendation = 'Имате наднормено тегло. Опитайте <a href="#minceur">капсулите Victory</a> за естествено и бързо отслабване.';
+                posology = 'Дозиране: 2 капсули Victory на ден (сутрин, обяд, вечер) с чаша вода. Или 6 на ден в продължение на 3 месеца, за да възвърнете перфектно стройно тяло.';
+            } else {
+                category = 'Затлъстяване';
+                recommendation = 'Вашият ИТМ показва затлъстяване. <a href="#programme-personnalise">Персонализираната програма Victory</a> е идеална за вас в комбинация с капсулите за отслабване Victory';
+                posology = 'Дозиране: 2 капсули Victory на ден при всяко хранене, комбинирани с персонализираната програма Victory. Или 6 капсули на ден в продължение на 4 месеца, за да достигнете идеалното си тегло.';
+            }
+
+            imcRecommendation.innerHTML = `
+                <p>Вашият ИТМ: <strong>${imc}</strong> (${category})</p>
+                <p>${recommendation}</p>
+                <p>${posology}</p>
+            `;
+
+            if (chartInstance) chartInstance.destroy();
+            chartInstance = new Chart(imcChart, {
+                type: 'bar',
+                data: {
+                    labels: ['Вашият ИТМ', 'Нормален ИТМ'],
+                    datasets: [{
+                        label: 'ИТМ',
+                        data: [imc, 22],
+                        backgroundColor: ['#FF69B4', '#87CEEB'],
+                        borderColor: ['#fff', '#fff'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: { beginAtZero: true, max: 40 },
+                        x: { ticks: { color: '#fff' } }
+                    },
+                    plugins: { legend: { labels: { color: '#fff' } } }
+                }
+            });
+        }
+    });
+
+    // Управление на аудио бутоните
+    const audioButtons = document.querySelectorAll('.audio-button');
+    let currentUtterance = null;
+
+    audioButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const textIds = button.dataset.textId.split(',');
+            const texts = textIds.map(id => {
+                const elements = document.querySelectorAll(`#${id},.${id},[id*="${id}"]`);
+                return Array.from(elements).map(el => el.textContent.trim()).join(' ');
+            }).join(' ');
+
+            if (button.classList.contains('play-button')) {
+                if (currentUtterance) {
+                    speechSynthesis.cancel();
+                }
+                currentUtterance = new SpeechSynthesisUtterance(texts);
+                currentUtterance.lang = 'bg-BG';
+                currentUtterance.rate = 1;
+                currentUtterance.pitch = 1;
+                speechSynthesis.speak(currentUtterance);
+
+                button.style.display = 'none';
+                button.nextElementSibling.style.display = 'inline-flex';
+                button.nextElementSibling.classList.add('playing');
+            } else {
+                speechSynthesis.cancel();
+                button.style.display = 'none';
+                button.previousElementSibling.style.display = 'inline-flex';
+                button.classList.remove('playing');
+            }
+        });
+    });
+
+    // Управление на бутона за заглушаване на видеото
+    const muteToggle = document.querySelector('.mute-toggle');
+    const videoIframe = document.querySelector('.video-container iframe');
+    muteToggle.addEventListener('click', () => {
+        const isMuted = muteToggle.textContent.includes('Активирай');
+        muteToggle.textContent = isMuted ? 'Изключи звука' : 'Активирай звука';
+        videoIframe.contentWindow.postMessage(JSON.stringify({
+            event: 'command',
+            func: isMuted ? 'unMute' : 'mute'
+        }), '*');
+    });
+
+    // Управление на преводача на Google
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'bg',
+            includedLanguages: 'af,ar,bg,bn,bs,cs,da,de,el,en,es,et,eu,fa,fi,fr,ga,gl,he,hi,hr,hu,hy,id,is,it,ja,ka,km,ko,lo,lt,lv,mk,ml,ms,mt,my,nl,no,pl,pt,ro,ru,sk,sl,sr,sv,sw,ta,te,th,tl,tr,uk,ur,vi,zh-CN,zh-TW,zu',
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+            autoDisplay: false
+        }, 'google_translate_element');
+    }
+
+    // Управление на грешките във видеото
+    videoIframe.addEventListener('error', () => {
+        document.getElementById('video-error').style.display = 'block';
+    });
+
+    // Web Vitals
+    webVitals.getCLS((metric) => console.log('CLS:', metric.value));
+    webVitals.getFID((metric) => console.log('FID:', metric.value));
+    webVitals.getLCP((metric) => console.log('LCP:', metric.value));
+</script>
+</body>
+</html>
+
 
